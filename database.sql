@@ -4,6 +4,8 @@ CREATE DATABASE t21_sql;
 \c nome_do_banco 
 \c t21_sql
 
+DROP DATABASE t21_sql;
+
 /*
  texto - string 
 número - number
@@ -24,8 +26,10 @@ CREATE TABLE products (
 \dt
 
 CREATE TABLE categories (
-    "id" SERIAL PRIMARY KEY,
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     "name" VARCHAR(50) NOT NULL,
-    "createdAt" TIMESTAMP,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
     "updatedAt" TIMESTAMP
 );
+
+DROP TABLE categories;
