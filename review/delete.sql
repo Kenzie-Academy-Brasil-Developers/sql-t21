@@ -1,0 +1,4 @@
+DELETE FROM books WHERE "id" = 4;
+
+DELETE FROM books;
+TRUNCATE TABLE books;
