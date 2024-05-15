@@ -21,17 +21,49 @@ CREATE TABLE addresses (
 );
 
 /* 1pN - Um usuário pode cadastrar vários pedidos */
-
 CREATE TABLE orders(
     "id" SERIAL PRIMARY KEY,
     "status" VARCHAR(20) NOT NULL,
     "createdAt" TIMESTAMP DEFAULT NOW(),
     "updatedAt" TIMESTAMP,
     "userId" INTEGER,
-    FOREIGN KEY ("userId") REFERENCES users("id") ON DELETE SET NULL
+    FOREIGN KEY ("userId") REFERENCES users("id") ON DELETE
+    SET
+        NULL
 );
 
 /* Altera configurações de tabelas */
+ALTER TABLE
+    users
+ALTER COLUMN
+    "password"
+SET
+    NOT NULL;
 
-ALTER TABLE users
-ALTER COLUMN "password" SET NOT NULL;
+/* Receitas - Categorias */
+/* NpN - */
+CREATE TABLE recipes(
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR(100) NOT NULL,
+    "description" VARCHAR(200) NOT NULL,
+    "createdAt" TIMESTAMP DEFAULT NOW(), 
+    "updatedAt" TIMESTAMP
+);
+
+CREATE TABLE categories(
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(100) NOT NULL,
+    "createdAt" TIMESTAMP DEFAULT NOW(), 
+    "updatedAt" TIMESTAMP
+);
+
+/* Tabelinha pivo */
+
+CREATE TABLE recipes_categories(
+    "id" SERIAL PRIMARY KEY,
+    "recipeId" INTEGER NOT NULL,
+    FOREIGN KEY ("recipeId") REFERENCES recipes("id") ON DELETE CASCADE,
+    "categoryId" INTEGER NOT NULL,
+    FOREIGN KEY ("categoryId") REFERENCES categories("id") ON DELETE CASCADE
+);
+

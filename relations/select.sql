@@ -56,3 +56,40 @@ orders."status",
 orders."createdAt"
 FROM users 
 JOIN orders ON users."id" = orders."userId";
+
+SELECT
+recipes."title",
+recipes."description",
+categories."name",
+recipes_categories."recipeId",
+recipes_categories."categoryId"
+FROM recipes_categories 
+JOIN recipes ON recipes."id" = recipes_categories."recipeId"
+JOIN categories ON categories."id" = recipes_categories."categoryId";
+
+/*
+CREATE TABLE recipes(
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR(100) NOT NULL,
+    "description" VARCHAR(200) NOT NULL,
+    "createdAt" TIMESTAMP DEFAULT NOW(), 
+    "updatedAt" TIMESTAMP
+);
+
+CREATE TABLE categories(
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(100) NOT NULL,
+    "createdAt" TIMESTAMP DEFAULT NOW(), 
+    "updatedAt" TIMESTAMP
+);
+
+/* Tabelinha pivo */
+
+CREATE TABLE recipes_categories(
+    "id" SERIAL PRIMARY KEY,
+    "recipeId" INTEGER NOT NULL,
+    FOREIGN KEY ("recipeId") REFERENCES recipes("id") ON DELETE CASCADE,
+    "categoryId" INTEGER NOT NULL,
+    FOREIGN KEY ("categoryId") REFERENCES categories("id") ON DELETE CASCADE
+);
+*/
